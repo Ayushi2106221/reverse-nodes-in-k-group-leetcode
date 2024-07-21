@@ -1,0 +1,35 @@
+class Solution {
+public:
+    ListNode* reverseKGroup(ListNode* head, int k) {
+        ListNode *curr=head;
+       ListNode *prev=NULL;
+      ListNode *fwd=NULL;
+
+      ListNode*temp=head;
+      int n=0;
+      //to count number of elements in list
+    
+    while(temp){
+        n++;
+        temp=temp->next;
+    }
+
+    if(n<k){
+        return head;
+    }
+      
+       int count=0;
+       while(curr!=NULL && count<k){
+           count++;
+           fwd=curr->next;
+           curr->next=prev;
+           prev=curr;
+           curr=fwd;
+       }
+       
+       if(fwd!=NULL){
+           head->next=reverseKGroup(fwd,k);
+       }
+       return prev;
+    }
+};
